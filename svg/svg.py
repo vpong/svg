@@ -260,10 +260,12 @@ class Group(Transformable):
             item.matrix = self.matrix * item.matrix
             item.viewport = self.viewport
 
-            self.items.append(item)
             # Recursively append if elt is a <g> (group)
             if elt.tag == svg_ns + 'g':
                 item.append(elt)
+
+            if len(item.items) > 0:
+                self.items.append(item)
 
     def __repr__(self):
         return '<Group ' + self.id + '>: ' + repr(self.items)
